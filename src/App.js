@@ -1,20 +1,21 @@
+import React, { useState } from "react";
+import { MemoList } from "./components/memoList.tsx";
+import { MemoEdit } from "./components/memoEdit.tsx";
+
 function App() {
+  const [selectMemo, setSelectMemo] = useState(null);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>{selectMemo ? "編集" : "一覧"}</h2>
+      <main>
+        <div className="container">
+          <MemoList />
+        </div>
+        <div className="container">
+          <MemoEdit />
+        </div>
+      </main>
     </div>
   );
 }
