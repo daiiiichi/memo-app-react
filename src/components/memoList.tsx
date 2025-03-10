@@ -8,15 +8,19 @@ export const MemoList = ({ props }) => {
       {props.memos.map((memo) => (
         <p
           key={memo.id}
-          className={styles.newMemo}
+          className={
+            props.selectedMemo && props.selectedMemo.id === memo.id
+              ? ""
+              : styles.memoUnselected
+          }
           onClick={() => props.setSelectedMemo(memo)}
         >
-          {memo.text}
+          {memo.text.split("\n")[0]}
         </p>
       ))}
       <p
         className={styles.newMemo}
-        onClick={() => props.setSelectedMemo({ id: 0, text: "" })}
+        onClick={() => props.setSelectedMemo({ id: null, text: "" })}
       >
         ＋
       </p>

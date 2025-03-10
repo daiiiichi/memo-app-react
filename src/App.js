@@ -16,10 +16,14 @@ function App() {
       <h2>{selectedMemo ? "編集" : "一覧"}</h2>
       <main>
         <div className="container">
-          <MemoList props={{ memos, selectedMemo, setSelectedMemo }} />
+          <MemoList
+            props={{ memos, setMemos, selectedMemo, setSelectedMemo }}
+          />
         </div>
         <div className="container">
-          <MemoEdit />
+          <MemoEdit
+            props={{ memos, setMemos, selectedMemo, setSelectedMemo }}
+          />
         </div>
       </main>
     </div>

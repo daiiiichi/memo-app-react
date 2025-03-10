@@ -51,6 +51,12 @@ textarea {
   width: auto;
 }
 
+.memoUnselected {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
 .newMemo {
   cursor: pointer;
   color: blue;
