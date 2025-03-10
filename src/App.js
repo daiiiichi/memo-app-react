@@ -3,14 +3,14 @@ import { MemoList } from "./components/memoList.tsx";
 import { MemoEdit } from "./components/memoEdit.tsx";
 
 function App() {
-  const [selectMemo, setSelectMemo] = useState(null);
+  const [selectedMemo, setSelectedMemo] = useState(null);
 
   return (
     <div className="App">
-      <h2>{selectMemo ? "編集" : "一覧"}</h2>
+      <h2>{selectedMemo ? "編集" : "一覧"}</h2>
       <main>
         <div className="container">
-          <MemoList />
+          <MemoList props={{ selectedMemo, setSelectedMemo }} />
         </div>
         <div className="container">
           <MemoEdit />
