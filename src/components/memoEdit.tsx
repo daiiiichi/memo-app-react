@@ -14,6 +14,13 @@ export const MemoEdit = ({ props }) => {
     props.setSelectedMemo(null);
   };
 
+  const deleteMemo = (id) => {
+    const updatedMemos = props.memos.filter((memo) => memo.id !== id);
+    saveMemos(updatedMemos);
+    props.setMemos(updatedMemos);
+    props.setSelectedMemo(null);
+  };
+
   return (
     <div>
       {props.selectedMemo && (
@@ -28,7 +35,9 @@ export const MemoEdit = ({ props }) => {
             <button onClick={() => addMemo(props.selectedMemo)}>
               {props.selectedMemo.id ? "更新" : "新規追加"}
             </button>
-            <button>削除</button>
+            <button onClick={() => deleteMemo(props.selectedMemo.id)}>
+              削除
+            </button>
           </div>
         </div>
       )}
