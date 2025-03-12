@@ -1,44 +1,50 @@
 import React from "react";
 import styles from "../styles/globals.module.css";
+import { Memo, MemoStateProps } from "../types/typs.ts";
 
-export const MemoEdit = ({ props }) => {
-  const saveMemos = (updatedMemos) => {
+export const MemoEdit: React.FC<MemoStateProps> = ({
+  memos,
+  selectedMemo,
+  setMemos,
+  setSelectedMemo,
+}) => {
+  const saveMemos = (updatedMemos: Memo[]): void => {
     localStorage.setItem("memos", JSON.stringify(updatedMemos));
   };
 
-  const addMemo = (newMemo) => {
-    const updateNewMemo = { id: Date.now(), text: newMemo.text };
-    const updatedMemos = [...props.memos, updateNewMemo];
+  const addMemo = (newMemo: Memo): void => {
+    const updateNewMemo: Memo = { id: Date.now(), text: newMemo.text };
+    const updatedMemos: Memo[] = [...memos, updateNewMemo];
     saveMemos(updatedMemos);
-    props.setMemos(updatedMemos);
-    props.setSelectedMemo(null);
+    setMemos(updatedMemos);
+    setSelectedMemo(null);
   };
 
-  const updateMemo = (selectedMemo) => {
-    const updatedMemos = props.memos.map((memo) =>
+  const updateMemo = (selectedMemo: Memo): void => {
+    const updatedMemos: Memo[] = memos.map((memo) =>
       memo.id === selectedMemo.id ? selectedMemo : memo
     );
     saveMemos(updatedMemos);
-    props.setMemos(updatedMemos);
-    props.setSelectedMemo(null);
+    setMemos(updatedMemos);
+    setSelectedMemo(null);
   };
 
-  const deleteMemo = (id) => {
-    const updatedMemos = props.memos.filter((memo) => memo.id !== id);
+  const deleteMemo = (id: number | null): void => {
+    const updatedMemos: Memo[] = memos.filter((memo) => memo.id !== id);
     saveMemos(updatedMemos);
-    props.setMemos(updatedMemos);
-    props.setSelectedMemo(null);
+    setMemos(updatedMemos);
+    setSelectedMemo(null);
   };
 
   return (
     <div>
-      {props.selectedMemo && (
+      {selectedMemo && (
         <div className={styles.memoedit}>
           <textarea
-            value={props.selectedMemo.text}
+            value={selectedMemo.text}
             onChange={(e) =>
-              props.setSelectedMemo({
-                id: props.selectedMemo.id ?? null,
+              setSelectedMemo({
+                id: selectedMemo.id ?? null,
                 text: e.target.value,
               })
             }
@@ -46,16 +52,14 @@ export const MemoEdit = ({ props }) => {
           <div className={styles.buttonarea}>
             <button
               onClick={() =>
-                props.selectedMemo.id
-                  ? updateMemo(props.selectedMemo)
-                  : addMemo(props.selectedMemo)
+                selectedMemo.id
+                  ? updateMemo(selectedMemo)
+                  : addMemo(selectedMemo)
               }
             >
-              {props.selectedMemo.id ? "更新" : "新規追加"}
+              {selectedMemo.id ? "更新" : "新規追加"}
             </button>
-            <button onClick={() => deleteMemo(props.selectedMemo.id)}>
-              削除
-            </button>
+            <button onClick={() => deleteMemo(selectedMemo.id)}>削除</button>
           </div>
         </div>
       )}

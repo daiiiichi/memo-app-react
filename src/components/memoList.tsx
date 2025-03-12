@@ -1,26 +1,32 @@
 import React from "react";
 import styles from "../styles/globals.module.css";
+import { MemoStateProps } from "../types/typs.ts";
 
-export const MemoList = ({ props }) => {
+export const MemoList: React.FC<MemoStateProps> = ({
+  memos,
+  selectedMemo,
+  setMemos,
+  setSelectedMemo,
+}) => {
   return (
     <div>
       <strong className="">memolist</strong>
-      {props.memos.map((memo) => (
+      {memos.map((memo) => (
         <p
           key={memo.id}
           className={
-            props.selectedMemo && props.selectedMemo.id === memo.id
+            selectedMemo && selectedMemo.id === memo.id
               ? ""
               : styles.memoUnselected
           }
-          onClick={() => props.setSelectedMemo(memo)}
+          onClick={() => setSelectedMemo(memo)}
         >
           {memo.text.split("\n")[0]}
         </p>
       ))}
       <p
         className={styles.newMemo}
-        onClick={() => props.setSelectedMemo({ id: null, text: "" })}
+        onClick={() => setSelectedMemo({ id: null, text: "" })}
       >
         ＋
       </p>
