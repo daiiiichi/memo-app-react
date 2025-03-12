@@ -6,9 +6,18 @@ export const MemoEdit = ({ props }) => {
     localStorage.setItem("memos", JSON.stringify(updatedMemos));
   };
 
-  const addMemo = (selectedMemo) => {
-    const updateSelectedMemo = { id: Date.now(), text: selectedMemo.text };
-    const updatedMemos = [...props.memos, updateSelectedMemo];
+  const addMemo = (newMemo) => {
+    const updateNewMemo = { id: Date.now(), text: newMemo.text };
+    const updatedMemos = [...props.memos, updateNewMemo];
+    saveMemos(updatedMemos);
+    props.setMemos(updatedMemos);
+    props.setSelectedMemo(null);
+  };
+
+  const updateMemo = (selectedMemo) => {
+    const updatedMemos = props.memos.map((memo) =>
+      memo.id === selectedMemo.id ? selectedMemo : memo
+    );
     saveMemos(updatedMemos);
     props.setMemos(updatedMemos);
     props.setSelectedMemo(null);
@@ -28,11 +37,20 @@ export const MemoEdit = ({ props }) => {
           <textarea
             value={props.selectedMemo.text}
             onChange={(e) =>
-              props.setSelectedMemo({ id: null, text: e.target.value })
+              props.setSelectedMemo({
+                id: props.selectedMemo.id ?? null,
+                text: e.target.value,
+              })
             }
           ></textarea>
           <div className={styles.buttonarea}>
-            <button onClick={() => addMemo(props.selectedMemo)}>
+            <button
+              onClick={() =>
+                props.selectedMemo.id
+                  ? updateMemo(props.selectedMemo)
+                  : addMemo(props.selectedMemo)
+              }
+            >
               {props.selectedMemo.id ? "更新" : "新規追加"}
             </button>
             <button onClick={() => deleteMemo(props.selectedMemo.id)}>
