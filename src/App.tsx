@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MemoList } from "./components/memoList.tsx";
 import { MemoEdit } from "./components/memoEdit.tsx";
-import { Memo } from "./types/typs.ts";
+import { Memo } from "./types/types.ts";
 
 function App() {
   const [memos, setMemos] = useState<Memo[]>([]);

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../styles/globals.module.css";
-import { Memo, MemoStateProps } from "../types/typs.ts";
+import { Memo, MemoStateProps } from "../types/types.ts";
 
 export const MemoEdit: React.FC<MemoStateProps> = ({
   memos,

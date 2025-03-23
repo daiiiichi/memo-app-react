@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../styles/globals.module.css";
-import { MemoStateProps } from "../types/typs.ts";
+import { MemoStateProps } from "../types/types.ts";
 
 export const MemoList: React.FC<MemoStateProps> = ({
   memos,
