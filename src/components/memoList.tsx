@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { UserContext } from "../context/userContext.tsx";
 import styles from "../styles/globals.module.css";
-import { MemoStateProps } from "../types/typs.ts";
+import { MemoStateProps } from "../types/types.ts";
 
 export const MemoList: React.FC<MemoStateProps> = ({
   memos,
@@ -24,7 +24,7 @@ export const MemoList: React.FC<MemoStateProps> = ({
           }
           onClick={() => setSelectedMemo(memo)}
         >
-          {memo.text.split("\n")[0]}
+          {memo.text.split("\n")[0] || "(1行目が空行のメモ)"}
         </p>
       ))}
       {isLogin && (

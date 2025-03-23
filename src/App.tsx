@@ -4,8 +4,8 @@ import { MemoList } from "./components/memoList.tsx";
 import { MemoEdit } from "./components/memoEdit.tsx";
 import LoginButton from "./components/loginButton.tsx";
 import UserNotification from "./components/userNotification.tsx";
-import { Memo } from "./types/typs.ts";
 import styles from "./styles/globals.module.css";
+import { Memo } from "./types/types.ts";
 
 function App() {
   const [memos, setMemos] = useState<Memo[]>([]);
@@ -16,6 +16,12 @@ function App() {
     const memoList: Memo[] = storedMemos ? JSON.parse(storedMemos) : [];
     setMemos(memoList);
   }, []);
+
+  useEffect(() => {
+    if (memos.length > 0) {
+      localStorage.setItem("memos", JSON.stringify(memos));
+    }
+  }, [memos]);
 
   return (
     <UserProvider>
