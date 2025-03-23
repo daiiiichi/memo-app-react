@@ -21,7 +21,7 @@ export const MemoList: React.FC<MemoStateProps> = ({
           }
           onClick={() => setSelectedMemo(memo)}
         >
-          {memo.text.split("\n")[0]}
+          {memo.text.split("\n")[0] || "(1行目が空行のメモ)"}
         </p>
       ))}
       <p
