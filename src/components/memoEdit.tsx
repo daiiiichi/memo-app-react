@@ -8,30 +8,23 @@ export const MemoEdit: React.FC<MemoStateProps> = ({
   setMemos,
   setSelectedMemo,
 }) => {
-  const saveMemos = (updatedMemos: Memo[]) => {
-    localStorage.setItem("memos", JSON.stringify(updatedMemos));
-  };
-
   const addMemo = (newMemo: Memo) => {
     const updateNewMemo: Memo = { id: Date.now(), text: newMemo.text };
     const updatedMemos: Memo[] = [...memos, updateNewMemo];
-    saveMemos(updatedMemos);
     setMemos(updatedMemos);
     setSelectedMemo(null);
   };
 
   const updateMemo = (selectedMemo: Memo) => {
     const updatedMemos: Memo[] = memos.map((memo) =>
-      memo.id === selectedMemo.id ? selectedMemo : memo,
+      memo.id === selectedMemo.id ? selectedMemo : memo
     );
-    saveMemos(updatedMemos);
     setMemos(updatedMemos);
     setSelectedMemo(null);
   };
 
   const deleteMemo = (id: number | null) => {
     const updatedMemos: Memo[] = memos.filter((memo) => memo.id !== id);
-    saveMemos(updatedMemos);
     setMemos(updatedMemos);
     setSelectedMemo(null);
   };

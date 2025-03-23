@@ -13,6 +13,12 @@ function App() {
     setMemos(memoList);
   }, []);
 
+  useEffect(() => {
+    if (memos.length > 0) {
+      localStorage.setItem("memos", JSON.stringify(memos));
+    }
+  }, [memos]);
+
   return (
     <div className="App">
       <h2>{selectedMemo ? "編集" : "一覧"}</h2>
