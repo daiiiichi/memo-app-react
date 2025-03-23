@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../context/userContext.tsx";
 import styles from "../styles/globals.module.css";
 import { Memo, MemoStateProps } from "../types/typs.ts";
 
@@ -8,6 +9,8 @@ export const MemoEdit: React.FC<MemoStateProps> = ({
   setMemos,
   setSelectedMemo,
 }) => {
+  const { isLogin } = useContext(UserContext);
+
   const saveMemos = (updatedMemos: Memo[]) => {
     localStorage.setItem("memos", JSON.stringify(updatedMemos));
   };
@@ -22,7 +25,7 @@ export const MemoEdit: React.FC<MemoStateProps> = ({
 
   const updateMemo = (selectedMemo: Memo) => {
     const updatedMemos: Memo[] = memos.map((memo) =>
-      memo.id === selectedMemo.id ? selectedMemo : memo,
+      memo.id === selectedMemo.id ? selectedMemo : memo
     );
     saveMemos(updatedMemos);
     setMemos(updatedMemos);
@@ -48,19 +51,28 @@ export const MemoEdit: React.FC<MemoStateProps> = ({
                 text: e.target.value,
               })
             }
+            readOnly={!isLogin}
           ></textarea>
-          <div className={styles.buttonarea}>
-            <button
-              onClick={() =>
-                selectedMemo.id
-                  ? updateMemo(selectedMemo)
-                  : addMemo(selectedMemo)
-              }
-            >
-              {selectedMemo.id ? "更新" : "新規追加"}
-            </button>
-            <button onClick={() => deleteMemo(selectedMemo.id)}>削除</button>
-          </div>
+          {isLogin && (
+            <div className={styles.buttonarea}>
+              <button
+                className={styles.editbutton}
+                onClick={() =>
+                  selectedMemo.id
+                    ? updateMemo(selectedMemo)
+                    : addMemo(selectedMemo)
+                }
+              >
+                {selectedMemo.id ? "更新" : "新規追加"}
+              </button>
+              <button
+                className={styles.editbutton}
+                onClick={() => deleteMemo(selectedMemo.id)}
+              >
+                削除
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
