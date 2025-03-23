@@ -20,7 +20,7 @@ export const MemoEdit: React.FC<MemoStateProps> = ({
 
   const updateMemo = (selectedMemo: Memo) => {
     const updatedMemos: Memo[] = memos.map((memo) =>
-      memo.id === selectedMemo.id ? selectedMemo : memo
+      memo.id === selectedMemo.id ? selectedMemo : memo,
     );
     setMemos(updatedMemos);
     setSelectedMemo(null);
